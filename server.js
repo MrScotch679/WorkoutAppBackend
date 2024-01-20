@@ -4,6 +4,8 @@ import { authRoutes } from './app/auth/auth.routes.js'
 import morgan from 'morgan'
 import { prisma } from './app/prisma.js'
 import { errorHandler, notFound } from './app/middleware/error.middleware.js'
+import { usersRoutes } from './app/user/user.routes.js'
+import { API_BASE, API_ROUTES } from './app/constants/api.constants.js'
 
 dotenv.config()
 
@@ -24,7 +26,8 @@ async function main() {
 	)
 
 	app.use(express.json())
-	app.use('/api/auth', authRoutes)
+	app.use(`${API_BASE}/${API_ROUTES.AUTH}`, authRoutes)
+	app.use(`${API_BASE}/${API_ROUTES.USERS}`, usersRoutes)
 	app.use(notFound)
 	app.use(errorHandler)
 }
