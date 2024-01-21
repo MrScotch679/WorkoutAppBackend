@@ -8,6 +8,7 @@ import { usersRoutes } from './app/user/user.routes.js'
 import { API_BASE, API_ROUTES } from './app/constants/api.constants.js'
 import { exercisesRoutes } from './app/exercise/exercise.routes.js'
 import path from 'path'
+import { workoutRoutes } from './app/workout/workout.routes.js'
 
 dotenv.config()
 
@@ -36,6 +37,7 @@ async function main() {
 	app.use(`${API_BASE}/${API_ROUTES.AUTH}`, authRoutes)
 	app.use(`${API_BASE}/${API_ROUTES.USERS}`, usersRoutes)
 	app.use(`${API_BASE}/${API_ROUTES.EXERCISES}`, exercisesRoutes)
+	app.use(`${API_BASE}/${API_ROUTES.WORKOUTS}`, workoutRoutes)
 
 	app.use(notFound)
 	app.use(errorHandler)

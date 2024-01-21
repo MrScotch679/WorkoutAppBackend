@@ -2,6 +2,7 @@ import expressAsyncHandler from 'express-async-handler'
 import jwt from 'jsonwebtoken'
 import { prisma } from '../prisma.js'
 import { UserFields } from '../utils/user.utils.js'
+import { notAuthorized } from './error.middleware.js'
 
 export const protect = expressAsyncHandler(async (req, res, next) => {
 	let token
@@ -30,8 +31,9 @@ export const protect = expressAsyncHandler(async (req, res, next) => {
 		}
 
 		if (!token) {
-			res.status(401)
-			throw new Error('Not authorized, no token')
+			notAuthorized(res)
 		}
+	} else {
+		notAuthorized(res)
 	}
 })
