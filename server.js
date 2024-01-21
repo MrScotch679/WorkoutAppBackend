@@ -6,6 +6,8 @@ import { prisma } from './app/prisma.js'
 import { errorHandler, notFound } from './app/middleware/error.middleware.js'
 import { usersRoutes } from './app/user/user.routes.js'
 import { API_BASE, API_ROUTES } from './app/constants/api.constants.js'
+import { exercisesRoutes } from './app/exercise/exercise.routes.js'
+import path from 'path'
 
 dotenv.config()
 
@@ -26,8 +28,15 @@ async function main() {
 	)
 
 	app.use(express.json())
+
+	const __dirname = path.resolve()
+
+	app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
 	app.use(`${API_BASE}/${API_ROUTES.AUTH}`, authRoutes)
 	app.use(`${API_BASE}/${API_ROUTES.USERS}`, usersRoutes)
+	app.use(`${API_BASE}/${API_ROUTES.EXERCISES}`, exercisesRoutes)
+
 	app.use(notFound)
 	app.use(errorHandler)
 }
