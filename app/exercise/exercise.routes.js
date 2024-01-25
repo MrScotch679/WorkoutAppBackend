@@ -7,6 +7,7 @@ import {
 	updateExercise
 } from './exercise.controller.js'
 import { protect } from '../middleware/auth.middleware.js'
+import { createExerciseLog } from './log/exercise-log.controller.js'
 
 export const exercisesRoutes = express.Router()
 
@@ -20,3 +21,5 @@ exercisesRoutes
 	.get(protect, getExercise)
 	.put(protect, updateExercise)
 	.delete(protect, deleteExercise)
+
+exercisesRoutes.route('/log/:exerciseId').post(protect, createExerciseLog)
