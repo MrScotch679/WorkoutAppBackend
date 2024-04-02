@@ -1,4 +1,5 @@
 import asyncHandler from 'express-async-handler'
+
 import { prisma } from '../../prisma.js'
 
 // @desc Create new workout log
@@ -33,7 +34,7 @@ export const createWorkoutLog = asyncHandler(async (req, res) => {
 				}
 			},
 			exerciseLogs: {
-				createMany: workout.exercises.map(exercise => ({
+				create: workout.exercises.map(exercise => ({
 					exercise: {
 						connect: {
 							id: exercise.id
